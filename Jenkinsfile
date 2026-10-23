@@ -43,11 +43,10 @@ pipeline {
                     echo 'Registering the metadata...'
                     def artifactId = registerBuildArtifactMetadata(
                         name: "My TestApp",
-                        version: "1.0.1",
+                        version: "1.0.0",
                         type: "docker",
                         url: "http://localhost:1112",
-                        digest: "93518064707039346163693937",
-                        label: "bug-bash"
+                        digest: "13518864707039346163693937",
                     )
                     echo "Artifact Id is: ${artifactId}"
                     env.ARTIFACT_ID = artifactId
@@ -60,18 +59,8 @@ pipeline {
                 echo 'Deploying.....'
                 registerDeployedArtifactMetadata(
                     artifactId: "${env.ARTIFACT_ID}",
-                    targetEnvironment: "CBCI",
-                    labels: "CBCI"
-                )
-            }
-        }
-        stage('Deploy2') {
-            steps {
-                echo 'Deploying...'
-                registerDeployedArtifactMetadata(
-                    artifactId: "${env.ARTIFACT_ID}",
-                    targetEnvironment: "Aruna_Test",
-                    labels: "Aruna_Test"
+                    targetEnvironment: "demo-staging",
+                    labels: "stable"
                 )
             }
         }
