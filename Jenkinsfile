@@ -1,6 +1,19 @@
 
 pipeline {
-    agent any
+    kubernetes {
+        defaultContainer 'maven'
+        yaml """
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: maven
+            image: maven:3.9.10-eclipse-temurin-17-alpine
+            command:
+            - cat
+            tty: true
+        """
+    }
     environment {
         // You can set environment variables here
         MAVEN_OPTS = "-Dmaven.test.failure.ignore=true"
