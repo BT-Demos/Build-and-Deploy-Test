@@ -1,18 +1,20 @@
 
 pipeline {
-    kubernetes {
-        defaultContainer 'maven'
-        yaml """
-        apiVersion: v1
-        kind: Pod
-        spec:
-          containers:
-          - name: maven
-            image: maven:3.9.10-eclipse-temurin-17-alpine
-            command:
-            - cat
-            tty: true
-        """
+    agent {
+        kubernetes {
+            defaultContainer 'maven'
+            yaml """
+            apiVersion: v1
+            kind: Pod
+            spec:
+              containers:
+              - name: maven
+                image: maven:3.9.10-eclipse-temurin-17-alpine
+                command:
+                - cat
+                tty: true
+            """
+        }
     }
     environment {
         // You can set environment variables here
