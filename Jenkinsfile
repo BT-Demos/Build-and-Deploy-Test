@@ -54,6 +54,11 @@ pipeline {
                 }
             }
         }
+        stage('Register sample security scan') {
+            steps {
+                registerSecurityScan(artifacts: 'scandata/trivy.sarif')
+            }
+        }
         stage('Deploy') {
             steps {
                 echo 'Deploying.....'
