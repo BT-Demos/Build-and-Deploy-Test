@@ -57,7 +57,10 @@ pipeline {
         stage('Register sample security scan') {
             steps {
                 checkout scm
-                registerSecurityScan(artifacts: 'scandata/trivy.sarif')
+                sh 'ls -la scandata'   // confirms the file is on the agent
+                dir('scandata') {
+                    registerSecurityScan(artifacts: 'trivy.sarif')
+                }
             }
         }
         stage('Deploy') {
