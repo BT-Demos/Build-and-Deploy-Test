@@ -56,6 +56,7 @@ pipeline {
         }
         stage('Register sample security scan') {
             steps {
+                checkout scm
                 registerSecurityScan(artifacts: 'scandata/trivy.sarif')
             }
         }
